@@ -5,6 +5,8 @@ inputs:
   tag-filter:
     description: Bash pattern used to filter processed tags (matched against tag name, without "refs/tags/")
     default: "*"
+  exclude-directories:
+    description: Space separated list of directories that contain a go.mod file to ignore
   vendor-dir-format:
     description: Format string which should match the top level dir name inside source archive (can use @TAG@ and @VTAG@)
     default: ${{ github.event.repository.name }}-@TAG@
@@ -68,6 +70,7 @@ runs:
                 uses: projg2/golang-dist-action@v1
                 with:
                   dist-filename: ${{ github.event.repository.name }}-@TAG@
+                  exclude-directories: ${{ inputs.exclude-directories }}
                   vendor-dir: ${{ inputs.vendor-dir-format }}
         "
         while read tag; do
