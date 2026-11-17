@@ -81,8 +81,8 @@ runs:
             tag_name=${tag_name//\//-}
             tag_name=${tag_name#${{ github.event.repository.name }}-}
             vtag=${tag_name}
-            if [[ ${tag_name} == v[0-9]* ]]; then
-              tag_name=${tag_name#v}
+            if [[ ${tag_name} == [vV][0-9]* ]]; then
+              tag_name=${tag_name#[vV]}
             fi
             git checkout FETCH_HEAD &&
             git rm -rf --ignore-unmatch .github/workflows &&
